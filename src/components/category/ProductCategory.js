@@ -28,7 +28,7 @@ export default ProductCategory;
 //   return <RootLayout>{page}</RootLayout>;
 // };
 // export const getStaticProps = async () => {
-//   const res = await fetch("http://localhost:3000/api/categories");
+//   const res = await fetch("https://pc-builder-nine.vercel.app/api/categories");
 //   const categories = await res.json();
 //   console.log(categories);
 //   return { props: { categories } };

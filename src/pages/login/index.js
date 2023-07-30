@@ -110,12 +110,12 @@ const Login = () => {
           </p>
           <div>
             <Button onClick={() => signIn("google", {
-              callbackUrl: callbackUrl || "http://localhost:3000/"
+              callbackUrl: callbackUrl || "https://pc-builder-nine.vercel.app/"
             })} type="danger" icon={<GoogleOutlined />} size="large">
               Login with Google
             </Button>
             <Button type="default" onClick={() => signIn("github", {
-              callbackUrl: callbackUrl || "http://localhost:3000/"
+              callbackUrl: callbackUrl || "https://pc-builder-nine.vercel.app/"
             })} icon={<GithubOutlined />} size="large">
               Login with GitHub
             </Button>

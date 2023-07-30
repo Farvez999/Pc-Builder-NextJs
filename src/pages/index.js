@@ -31,9 +31,9 @@ export const getStaticProps = async () => {
   // if (typeof window === 'undefined') {
   //   return { props: { products: [], categories: [] } }
   // }
-  const res = await fetch("http://localhost:3000/api/products");
+  const res = await fetch("https://pc-builder-nine.vercel.app/api/products");
   const products = await res.json();
-  const cateres = await fetch("http://localhost:3000/api/categories");
+  const cateres = await fetch("https://pc-builder-nine.vercel.app/api/categories");
   const categories = await cateres.json();
 
   return { props: { products, categories } };

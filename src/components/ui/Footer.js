@@ -18,7 +18,7 @@ const contactInfoStyle = {
 const Footer = () => {
   const combinedFooterStyle = {
     ...footerStyle,
-    backgroundColor:customColor.cardColor
+    backgroundColor: customColor.cardColor
   };
 
   const iconStyle = {
@@ -29,12 +29,12 @@ const Footer = () => {
     <footer style={combinedFooterStyle}>
       <Grid container alignItems="center" spacing={2}>
         <Grid item xs={12} sm={4} md={4}>
-          <Typography variant="h4" style={{ marginBottom: "16px",fontWeight:"600",color:customColor.buttonSecondery }}>
-        Pc Mart
+          <Typography variant="h4" style={{ marginBottom: "16px", fontWeight: "600", color: 'white' }}>
+            Tech Star
           </Typography>
-          <Typography variant="body2">
+          {/* <Typography variant="body2">
             Design and customize your dream PC configuration with us.
-          </Typography>
+          </Typography> */}
         </Grid>
         <Grid item xs={12} sm={4} md={4}>
           <Typography variant="subtitle1">Follow us:</Typography>
@@ -71,9 +71,9 @@ const Footer = () => {
         </Grid>
         <Grid item xs={12} sm={4} md={4} style={contactInfoStyle}>
           <Typography variant="subtitle1">Contact us:</Typography>
-          <Typography variant="body2">Email: info@pcbuilder.com</Typography>
-          <Typography variant="body2">Phone: (123) 456-7890</Typography>
-          <Typography variant="body2">Address: 1234 Main Street, City, Country</Typography>
+          <Typography variant="body2">Email: info@techstar.com</Typography>
+          <Typography variant="body2">Phone: (123) 554-7890</Typography>
+          <Typography variant="body2">Address: Badda, Dhaka, Bangladesh</Typography>
         </Grid>
       </Grid>
     </footer>

@@ -100,7 +100,7 @@ const Navbar = ({ children }) => {
                     backgroundColor: "#404040",
                     padding: "5px 10px",
                     borderRadius: "3px",
-                  }}>PC MART</Button>
+                  }}>Tech Star</Button>
                 </Link>
               </Typography>
               <List

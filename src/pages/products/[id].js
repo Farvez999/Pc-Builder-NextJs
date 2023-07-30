@@ -106,7 +106,7 @@ ProductDetails.getLayout = function getLayout(page) {
 
 export async function getStaticPaths() {
 
-  const res = await fetch(`http://localhost:3000/api/products`);
+  const res = await fetch(`https://pc-builder-nine.vercel.app/api/products`);
   const products = await res.json();
 
   const paths = products.product.map((post) => ({
@@ -120,7 +120,7 @@ export const getStaticProps = async (context) => {
   const id = context.params.id;
   console.log(id)
 
-  const res = await fetch(`http://localhost:3000/api/products/${id}`);
+  const res = await fetch(`https://pc-builder-nine.vercel.app/api/products/${id}`);
   const product = await res.json();
   return { props: { product } };
 };
