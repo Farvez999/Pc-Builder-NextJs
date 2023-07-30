@@ -1,18 +1,23 @@
-import * as React from "react";
-import AspectRatio from "@mui/joy/AspectRatio";
+// import * as React from "react";
+// import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/joy/Box";
-import Button from "@mui/joy/Button";
-import Card from "@mui/joy/Card";
-import CardContent from "@mui/joy/CardContent";
-import Typography from "@mui/joy/Typography";
-import Sheet from "@mui/joy/Sheet";
-import Link from "next/link";
+// import Button from "@mui/joy/Button";
+// import Card from "@mui/joy/Card";
+// import CardContent from "@mui/joy/CardContent";
+// import Typography from "@mui/joy/Typography";
+// import Sheet from "@mui/joy/Sheet";
+// import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useGetCategoryByNameQuery } from "@/redux/features/category/categoryApi";
 import { useRouter } from "next/router";
 import { useProductContext } from "@/context/ProductContext";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
+
+import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { Avatar, Button, Card, Col, Row } from "antd";
+import Link from "next/link";
+const { Meta } = Card;
 
 
 const RootLayout = dynamic(
@@ -21,12 +26,12 @@ const RootLayout = dynamic(
     ssr: false,
   }
 );
-const ProductList = ({ categories,data }) => {
+const ProductList = ({ categories, data }) => {
 
-console.log(data)
+  console.log(data)
   const { addProduct } = useProductContext();
   const router = useRouter();
-// console.log(router.query)
+  // console.log(router.query)
   // const id = router.query.id;
   //  const { data } = useGetCategoryByNameQuery(id);
   const products = data?.products;
@@ -38,47 +43,78 @@ console.log(data)
   };
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        position: "relative",
-        overflow: { xs: "auto", sm: "initial" },
-      }}
-    >
-      <Box
-        sx={{
-          position: "absolute",
-          display: "block",
-          width: "1px",
-          bgcolor: "warning.300",
-          left: "500px",
-          top: "-24px",
-          bottom: "-24px",
-          "&::before": {
-            top: "4px",
-            content: '"vertical"',
-            display: "block",
-            position: "absolute",
-            right: "0.5rem",
-            color: "text.tertiary",
-            fontSize: "sm",
-            fontWeight: "lg",
-          },
-          "&::after": {
-            top: "4px",
-            content: '"horizontal"',
-            display: "block",
-            position: "absolute",
-            left: "0.5rem",
-            color: "text.tertiary",
-            fontSize: "sm",
-            fontWeight: "lg",
-          },
-        }}
-      />
-      {products?.map((product) => (
-        <>
-          <Card
+    <div style={{ padding: '20px' }}>
+      <Row gutter={16} >
+        {products?.map((product) => (
+          <Col key={product.id} xs={24} sm={12} md={8} style={{ padding: '20px' }}>
+            {/* <Link href={`/products/${product._id}`}> */}
+            <Card
+              hoverable
+              cover={<img alt={product.name} src={product.image} style={{ height: '200px', objectFit: 'cover' }} />}
+            >
+              <Card.Meta
+                title={product.name}
+                description={
+                  <>
+                    {/* <div>Category: {product.categories_name}</div> */}
+                    <div>Category: {product.category}</div>
+                    <div>Price: {product.price}</div>
+                    <div>Status: {product.status}</div>
+                    <div>Rating: {product.average_rating} Stars</div>
+                  </>
+                }
+              />
+
+              <div style={{ marginTop: '10px' }}>
+                <Link href={"/pc-builder"}>
+                  <Button style={{ background: 'yellow', color: 'black', }}>
+                    Back
+                  </Button>
+                </Link>
+                <Button
+                  onClick={() => handleAdd(product)}
+                  style={{ background: 'blue', color: 'white', marginLeft: '10px' }}
+                  disabled={product.status === "Out of Stock"}
+                >
+                  {product.status === "Out of Stock" ? "Out of Stock" : "Add to build"}
+                </Button>
+              </div>
+            </Card>
+
+
+
+            {/* </Link> */}
+          </Col>
+        ))}
+      </Row>
+    </div>
+  );
+};
+export default ProductList;
+
+export const getServerSideProps = async (context) => {
+  const { id } = context.query;
+  const res = await fetch(`https://pc-builder-two.vercel.app/api/categories`);
+  const categories = await res.json();
+
+  // Extract the products with the matching ID from the first category
+  const data = categories?.category?.find(product => product._id === id) || null
+
+
+
+  return {
+    props: { categories, data }
+  };
+};
+
+
+
+ProductList.getLayout = function getLayout(page) {
+  return <RootLayout>{page}</RootLayout>;
+};
+
+
+{/* <Card
             orientation="horizontal"
             sx={{
               width: "100%",
@@ -99,8 +135,8 @@ console.log(data)
               sx={{ minWidth: 182, flex: 1 }}
             >
               <Image
-                height={300}
-                width={300}
+                height={400}
+                width={200}
                 src={product.image}
                 srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
                 loading="lazy"
@@ -159,40 +195,13 @@ console.log(data)
                   </Button>
                 </Link>
                 <Button
-        onClick={() => handleAdd(product)}
-        variant="solid"
-        color="primary"
-        disabled={product.status === "Out of Stock"}
-      >
-        {product.status === "Out of Stock" ? "Out of Stock" : "Add to build"}
-      </Button>
+                  onClick={() => handleAdd(product)}
+                  variant="solid"
+                  color="primary"
+                  disabled={product.status === "Out of Stock"}
+                >
+                  {product.status === "Out of Stock" ? "Out of Stock" : "Add to build"}
+                </Button>
               </Box>
             </CardContent>
-          </Card>
-        </>
-      ))}
-    </Box>
-  );
-};
-export default ProductList;
-
-export const getServerSideProps = async (context) => {
-  const { id } = context.query;
-  const res = await fetch(`https://pc-builder-two.vercel.app/api/categories`);
-  const categories = await res.json();
-  
-  // Extract the products with the matching ID from the first category
-  const data  = categories?.category?.find(product=> product._id ===id) || null
-
-
-
-  return {
-    props: { categories,data }
-  };
-};
-
-
-
-ProductList.getLayout = function getLayout(page) {
-  return <RootLayout>{page}</RootLayout>;
-};
+          </Card> */}
