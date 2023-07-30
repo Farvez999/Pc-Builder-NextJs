@@ -206,7 +206,6 @@ export default function PcBuilderPage() {
   );
 }
 
-// ...
 
 PcBuilderPage.getLayout = function getLayout(page) {
   return <RootLayout>{page}</RootLayout>;

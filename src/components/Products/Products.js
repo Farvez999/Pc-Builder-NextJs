@@ -1,14 +1,4 @@
 import React from "react";
-// import {
-//   Box,
-//   Typography,
-//   Card,
-//   CardActionArea,
-//   CardContent,
-//   CardMedia,
-//   Grid,
-//   Button,
-// } from "@mui/material";
 
 import Link from "next/link";
 import { Card, Col, Row } from "antd";
