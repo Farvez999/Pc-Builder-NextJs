@@ -32,6 +32,7 @@ export default function PcBuilderPage() {
   const [postSelectedProducts, { isLoading, isSuccess, isError, error }] =
     usePostProductsMutation();
   const rows = data?.category;
+  console.log(rows)
 
   const selectedCategories = Object.keys(selectedProducts);
   const allCategoriesSelected =
@@ -80,7 +81,7 @@ export default function PcBuilderPage() {
         <h3 style={{ color: "white" }}>
           Total Price: ${getTotalPrice()}
         </h3>
-        <Button
+        {/* <Button
           disabled={!allCategoriesSelected}
           onClick={() => handleAddToCart(selectedProducts)}
           style={{
@@ -95,7 +96,7 @@ export default function PcBuilderPage() {
           color={customColor.buttonSecondary}
         >
           Add to Cart
-        </Button>
+        </Button> */}
       </div>
 
 
@@ -117,17 +118,22 @@ export default function PcBuilderPage() {
                 key={row?.categories_name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" style={{ color: "#ffff" }} scope="row">
-                  {row.categories_name}
 
+                <TableCell component="th" style={{ color: "#000", fontSize: "20px", textAlign: 'center' }} scope="row">
+                  <div style={{ alignContent: "center" }}>
+                    <img src={row.image} style={{ width: "80px", height: "80px" }}></img>
+                    <p>{row.categories_name}</p>
+                  </div>
                 </TableCell>
+
                 <TableCell>
                   {Array.isArray(selectedProducts[row?.categories_name]) &&
                     selectedProducts[row?.categories_name].map((p) => (
                       <React.Fragment key={p?.name}>
-                        <p >{p?.name}</p>
-                        <p>{p?.price}</p>
+                        <p style={{ color: "#000", fontSize: "20px" }}>{p?.name}</p>
+                        <p style={{ color: "#000", fontSize: "15px" }}>Price: ${p?.price}</p>
                         <IconButton
+                          style={{ color: "red" }}
                           onClick={() => handleRemove(p?.category, p?.name)}
                           align="right"
                           aria-label="delete"
