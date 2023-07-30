@@ -47,8 +47,7 @@ export default async function auth(req, res) {
     ],
 
     pages: {
-      // signIn: "https://pc-builder-nine.vercel.app/login",
-      signIn: "/login",
+      signIn: "https://pc-builder-nine.vercel.app/login",
     },
     secret: process.env.NEXTAUTH_SECRET,
   });
